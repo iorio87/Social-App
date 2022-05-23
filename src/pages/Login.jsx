@@ -1,34 +1,46 @@
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import Loader from '../components/Loader'
 import { app, fireDb } from '../FirebaseConfig'
 
 function Login() {
+  const {loading} = useSelector(state=> state)
+  const dispatch = useDispatch()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const navigate = useNavigate()
 
   const login = () => {
+    dispatch({type: 'showLoading'})
     const auth = getAuth(app);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         getDoc(doc(fireDb, 'users', user.uid)).then((user) => {
           localStorage.setItem('social-app-user', JSON.stringify({ ...user.data(), id: user.id }))
+          toast.success('Login Successfull')
+          navigate('/')
         })
-
+        dispatch({type: 'hideLoading'})
       })
       .catch((error) => {
-        console.log(error);
+        toast.error('Login Failed')
+        dispatch({type: 'hideLoading'})
       });
   }
 
   return (
     <div className='h-screen flex justify-between flex-col overflow-x-hidden'>
 
+      {loading.loading && <Loader/>}
+
       {/* top corner */}
       <div className="flex justify-start">
-        <div className="h-40 bg-primary w-96 transform -skew-x-[25deg] -ml-10 flex items-center justify-center">
+        <div className="h-[120px] bg-primary w-96 transform -skew-x-[25deg] -ml-10 flex items-center justify-center">
           <h1 className='skew-x-[25deg] text-5xl text-white font-semibold'>SOCIAL APP</h1>
         </div>
       </div>
@@ -62,7 +74,7 @@ function Login() {
 
       {/* bottom corner */}
       <div className="flex justify-end">
-        <div className="h-40 bg-primary w-96 transform skew-x-[25deg] -mr-10 flex items-center justify-center">
+        <div className="h-[120px] bg-primary w-96 transform skew-x-[25deg] -mr-10 flex items-center justify-center">
           <h1 className='-skew-x-[25deg] text-5xl text-white font-semibold'>SOCIAL APP</h1>
         </div>
       </div>
