@@ -36,7 +36,7 @@ function Login() {
   return (
     <div className='h-screen flex justify-between flex-col overflow-x-hidden'>
 
-      {loading.loading && <Loader/>}
+      {loading && <Loader/>}
 
       {/* top corner */}
       <div className="flex justify-start">
