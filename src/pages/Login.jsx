@@ -1,8 +1,8 @@
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import Loader from '../components/Loader'
 import { app, fireDb } from '../FirebaseConfig'
@@ -32,6 +32,13 @@ function Login() {
         dispatch({type: 'hideLoading'})
       });
   }
+  
+  useEffect(() => {
+    if(localStorage.getItem('social-app-user')){
+     navigate('/')
+    }    
+  })
+  
 
   return (
     <div className='h-screen flex justify-between flex-col overflow-x-hidden'>

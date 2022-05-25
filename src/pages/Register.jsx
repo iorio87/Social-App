@@ -40,6 +40,12 @@ function Register() {
       });
   }
 
+  useEffect(() => {
+    if(localStorage.getItem('social-app-user')){
+     navigate('/')
+    }    
+  })
+
   return (
     <div className='h-screen flex justify-between flex-col overflow-x-hidden bg-primary'>
 
