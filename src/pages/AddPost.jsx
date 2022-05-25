@@ -48,13 +48,13 @@ function AddPost() {
 
   return (
     <DefaultLayout>
-      <div>
+      <div className='overflow-hidden'>
         <h1 className='text-3xl text-gray-600'>Add New Post</h1>
         <div className='w-screen flex flex-col'>
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className='border-2 border-dashed border-gray-500 w-1/2 md:w-full my-5 p-5' rows="3">
+            className='border-2 border-dashed border-gray-500 w-1/2 md:w-full my-4 p-3' rows="3">
 
           </textarea>
 
@@ -62,7 +62,7 @@ function AddPost() {
 
           {/* Previe image */}
           {image && (
-            <img src={URL.createObjectURL(image)} alt="" className='mt-5 h-52 w-52 rounded' />
+            <img src={URL.createObjectURL(image)} alt="" className='mt-5 h-40 w-40 rounded' />
           )}
 
         </div>

@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import AddPost from './pages/AddPost';
+import PostDesc from './pages/PostDesc';
 
 function ProtectedRoute({children}) {
   if(localStorage.getItem('social-app-user')){
@@ -21,6 +22,7 @@ function App() {
         <Routes>
           <Route path='/' element={<ProtectedRoute><Home/></ProtectedRoute>} />
           <Route path='/addpost' element={<ProtectedRoute><AddPost/></ProtectedRoute>} />
+          <Route path='/post/:id' element={<ProtectedRoute><PostDesc/></ProtectedRoute>} />
           <Route path='/login' element={<Login/>} />
           <Route path='/register' element={<Register/>} />
         </Routes>
