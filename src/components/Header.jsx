@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { CgMenuRightAlt } from 'react-icons/cg'
 
 function Header() {
     const location = useLocation()
     const [showMenu, setShowMenu] = useState(false)
+    const navigate = useNavigate()
     const menuItems = [
         {
             title: 'Home',
@@ -43,6 +44,13 @@ function Header() {
                             {item.title}
                         </Link>
                     })}
+                    <h1
+                        className='cursor-pointer'
+                        onClick={() => {
+                            localStorage.removeItem('social-app-user')
+                            navigate('/login')
+                        }}>Logout
+                    </h1>
                 </div>
 
                 {/* Mobile View */}
@@ -53,6 +61,13 @@ function Header() {
                             {item.title}
                         </Link>
                     })}
+                    <h1
+                        className='cursor-pointer'
+                        onClick={() => {
+                            localStorage.removeItem('social-app-user')
+                            navigate('/login')
+                        }}>Logout
+                    </h1>
                 </div>)}
             </div>
         </div>
